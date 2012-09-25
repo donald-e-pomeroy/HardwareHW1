@@ -1,0 +1,3 @@
+module cam()
+
+  endmodule
