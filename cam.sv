@@ -1,17 +1,27 @@
+
+//NOTE THIS IS NOT CURRENTLY FUNCTIONAL WITH CAM_TEST.  HAVE
+// TO AS ABOUT ADJUSTING TEST FILE!!
 module cam#(parameter DATA_WIDTH = 32,
 	    parameter ADDR_WIDTH = 5,
 	    parameter DEPTH = (1 << ADDR_WIDTH),
 	    parameter SIZE = (DEPTH*DATA_WIDTH))
    //End Parameter Defs
   (
-   input clk, read_i, write_i, search_i;
-   input[4:0] read_index_i, write_index_i;
-   input[31:0] write_data_i, search_data_i;
+   input 	       clk_i, 
+   input 	       rst_i,
+   input 	       read_i, 
+   input [4:0] 	       read_index_i,
+   input 	       write_i,
+   input [4:0] 	       write_index_i,
+   input [31:0]        write_data_i,
+   input 	       search_i, 
+   input [31:0]        search_data_i,
    
-   output logic     read_valid_o, search_valid_o ;
-   output logic [4:0] search_index_o;
-   output logic [31:0] read_value_o;
-   //Possible Struct Defs?
+   output logic        read_valid _ o,
+   output logic [31:0] read_value_o,
+   
+   output logic        search_valid_o,
+   output logic [4:0]  search_index_o,
    ); // End Input Defs
    
    //MUX
