@@ -1,7 +1,7 @@
 // Name: Leonard Robinson
 // 
-//
-//
+// Date Created:
+// Date Modified:
 module cam#(parameter DATA_WIDTH = 32,
 	    parameter ADDR_WIDTH = 5,
 	    parameter DEPTH = (1 << ADDR_WIDTH),
@@ -26,7 +26,12 @@ module cam#(parameter DATA_WIDTH = 32,
    
    //MUX
    wire [SIZE - 1 : 0 ] all_data;
-   //Insert MUX Here
+   32_to_1_Mux mux();
+//32_to_1_Mux(
+//	input[31:0] input_lines,
+//	input[4:0] selector_bits,
+//	output logic output_line),//
+   
    
    //Decoder
    //Put inputs on wires inside of the CAM
@@ -39,15 +44,20 @@ module cam#(parameter DATA_WIDTH = 32,
 
 
    //Priority Encoder
+   priority_encoder pe();
+   
 
 
+   //Memory
+   generate
+     
+      flipflop ff(.clk, ., write_i, );
+   
+   endgenerate
+     
 
 
-   //Generator
-      
-
-   end
    
    
 
-  endmodule
+endmodule // cam

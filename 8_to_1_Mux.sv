@@ -1,6 +1,6 @@
 module 8_to_1_Mux(
-	input input_lines[7:0];
-	input selector_bits[3:0];
+	input input_lines[7:0],
+	input selector_bits[3:0],
 	output logic output_line);
 	output logic 4_to_1_Mux_0_out;
 	output logic 4_to_1_Mux_1 out;

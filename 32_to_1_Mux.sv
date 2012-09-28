@@ -1,13 +1,12 @@
 module 32_to_1_Mux(
-	input[31:0] input_lines;
-	input[4:0] selector_bits;
+	input [31:0] input_lines,
+	input [4:0]  selector_bits,
 	output logic output_line);
-
+   
 	output logic 8_to_1_Mux_0_out;
 	output logic 8_to_1_Mux_1_out;	
 	output logic 8_to_1_Mux_2_out;
 	output logic 8_to_1_Mux_3_out;
-	
 
 	8_to_1_Mux mux0(
 		.input_lines[7:0](input_lines[7:0]),
@@ -36,7 +35,8 @@ module 32_to_1_Mux(
 		.input_lines[3](8_to_1_Mux_3_out),
 		.selector_bits[1:0](selector_bits[4:3]),
 		.output_line(output_line));
-endmodule
+endmodule // 32_to_1_Mux
+
 			
 
 	

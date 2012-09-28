@@ -1,6 +1,6 @@
 module 4_to_1_mux(
-	input input_lines[3:0];
-	input selector_bits[1:0];
+	input input_lines[3:0],
+	input selector_bits[1:0],
 	output logic output_line);
 	
 

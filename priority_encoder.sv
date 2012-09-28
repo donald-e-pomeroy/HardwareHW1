@@ -34,6 +34,7 @@ module priority_encoder(input[31:0] data_i;output logic[4:0] data_o);
 			32`bx1000000000000000000000000000000: data_o= 5`b11110;
 			32`b10000000000000000000000000000000: data_o= 5`b11111;
 			default: data_o = `x;
-		endcase
+		endcase // casex (data_i)
+	end // always_comb
 endmodule
 
