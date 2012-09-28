@@ -18,9 +18,8 @@ module cam#(parameter DATA_WIDTH = 32,
    input 	       search_i, 
    input [31:0]        search_data_i,
    
-   output logic        read_valid _ o,
+   output logic        read_valid_o,
    output logic [31:0] read_value_o,
-   
    output logic        search_valid_o,
    output logic [4:0]  search_index_o,
    ); // End Input Defs
@@ -35,7 +34,7 @@ module cam#(parameter DATA_WIDTH = 32,
    wire [DEPTH - 1 : 0] write_data_i;
    wire [DEPTH - 1 : 0] search_data_i;
 
-   cam_decoder decoder(.write_i, .search_i, );
+   cam_decoder decoder(.read_i, .read_index_i, .write_i,.write_index_i,.write_data_i,.search_i,.search_data_i);
    
 
 
