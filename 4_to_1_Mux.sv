@@ -1,7 +1,7 @@
-module 4_to_1_mux(input_lines[3:0],selector_bits[1:0],output_line)
+module 4_to_1_mux(
 	input input_lines[3:0];
 	input selector_bits[1:0];
-	output logic output_line;
+	output logic output_line);
 	
 
 	always_comb begin
