@@ -18,9 +18,19 @@ module cam_test();
     wire search_valid;
     wire read_valid;
 
-    cam cam_dut (.clk, .rst, .write, .write_index, .write_data,
-                 .search_data, .search_index, .read_index, .read,
-                 .search, .read_value, .search_valid, .read_valid);
+    cam cam_dut (.clk, 
+		 .rst, 
+		 .read,
+		 .read_index,
+		 .write,
+		 .write_index,
+		 .write_data,
+		 .search,
+		 .search_data,
+		 .read_value,
+		 .search_value,
+		 .search_index,
+		 );
 
     initial begin
         // Beginning of time.  Reset is on.

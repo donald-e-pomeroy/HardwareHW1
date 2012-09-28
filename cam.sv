@@ -1,6 +1,7 @@
-
-//NOTE THIS IS NOT CURRENTLY FUNCTIONAL WITH CAM_TEST.  HAVE
-// TO AS ABOUT ADJUSTING TEST FILE!!
+// Name: Leonard Robinson
+// 
+//
+//
 module cam#(parameter DATA_WIDTH = 32,
 	    parameter ADDR_WIDTH = 5,
 	    parameter DEPTH = (1 << ADDR_WIDTH),
