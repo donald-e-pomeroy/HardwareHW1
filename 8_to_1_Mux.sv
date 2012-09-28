@@ -7,12 +7,12 @@ module 8_to_1_Mux(input_lines[7:0],selector_bits[2:0],output_line)
 
 	4_to_1_Mux mux0(
 		.input_lines[3:0](input_lines[3:0]),
-		.selector_bits(selector_bits[1:0]),
+		.selector_bits[1:0](selector_bits[1:0]),
 		.output_line(4_to_1_Mux_0_out));
 
 	4_to_1_Mux mux1(
 		.input_lines[3:0](input_lines[7:4]),
-		.selector_bits(selector_bits[1:0]),
+		.selector_bits[1:0](selector_bits[1:0]),
 		.output_line(4_to_1_Mux_1_out));
 
 	always_comb begin
