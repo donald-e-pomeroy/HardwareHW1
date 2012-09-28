@@ -10,7 +10,7 @@ module flipflop
     output match_o
 );
 
-   always_ff @(posedge clk) begin
+   always_ff @(negedge clk) begin
       if (write_enable_i) data_o <= data_i;
    end
 
@@ -21,10 +21,8 @@ module flipflop
    end
 
    assign match_o = match;
-   
-endmodule // flipflop
-
-
+  
+endmodule
 
 
 

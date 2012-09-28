@@ -21,10 +21,8 @@ module flipflop
    end
 
    assign match_o = match;
-   
-endmodule // flipflop
-
-
+  
+endmodule
 
 
 
