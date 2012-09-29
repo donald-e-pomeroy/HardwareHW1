@@ -2,19 +2,27 @@
 module row #(parameter WIDTH=32)
 (
  input 			clk,
+ input 			reset, 
  input [WIDTH-1:0] 	data_i,
  input 			write_enable_i,
  input 			compare_enable_i,
  input [WIDTH-1:0] 	compare_i,
  output reg [WIDTH-1:0] data_o,
- output 		match_o
+ output 		match_o,
+ output reg 		read_valid_o 		
 );
 
    logic [WIDTH-1:0]      match;
 
+   always_ff @(posedge clk) begin
+      if (reset) read_valid_o <= '0;
+      else if (write_enable_i) read_valid_o <= '1;
+   end
+   
    generate 
       for (genvar j = 0; j < WIDTH; j++) begin
          flipflop membit(.clk,
+			 .reset,
                          .data_i(data_i[j]),
                          .write_enable_i,
                          .compare_enable_i,
