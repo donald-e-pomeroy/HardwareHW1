@@ -1,25 +1,25 @@
-module 8_to_1_Mux(
-	input input_lines[7:0],
-	input selector_bits[3:0],
+module eightToOneMux(
+	input [7:0]input_lines,
+	input [2:0]selector_bits,
 	output logic output_line);
-	output logic 4_to_1_Mux_0_out;
-	output logic 4_to_1_Mux_1 out;
+	logic muxZerOut;
+	logic muxOneOut;
 
-	4_to_1_Mux mux0(
-		.input_lines[3:0](input_lines[3:0]),
-		.selector_bits[1:0](selector_bits[1:0]),
-		.output_line(4_to_1_Mux_0_out));
+	fourToOneMux mux0(
+		.input_lines(input_lines[3:0]),
+		.selector_bits(selector_bits[1:0]),
+		.output_line(muxZeroOut));
 
-	4_to_1_Mux mux1(
-		.input_lines[3:0](input_lines[7:4]),
-		.selector_bits[1:0](selector_bits[1:0]),
-		.output_line(4_to_1_Mux_1_out));
+	fourToOneMux mux1(
+		.input_lines(input_lines[7:4]),
+		.selector_bits(selector_bits[1:0]),
+		.output_line(muxOneOut));
 
 	always_comb begin
 		assign output_line =  
-			(4_to_1_Mux_1_out & selector_bits[2])
+			(muxOneOut & selector_bits[2])
 			|
-			(4_to_1_Mux_0_out & (~selector_bits[2]));
+			(muxZeroOut & (~selector_bits[2]));
 	end
 endmodule
 	
