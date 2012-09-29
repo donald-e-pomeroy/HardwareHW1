@@ -1,3 +1,8 @@
+//
+//
+//
+//
+
 module priority_encoder(input[31:0] data_i,output logic[4:0] data_o);
 	always_comb begin
 		casex(data_i)

@@ -1,40 +1,39 @@
 //Leonard Robinson
 
-module cam_decoder#(parameter DATA_WIDTH = 32,
+module cam_decoder#(parameter WIDTH = 32,
 		    parameter ADDR_WIDTH = 5,
-		    parameter DEPTH = (1<<ADDR_WIDTH),
-		    parameter SIZE = (DEPTH*DATA_WIDTH))
+		    )
    //End Parameter Defs
    (
-    input 			 read_i,
-    input [ADDR_WIDTH - 1 : 0] 	 read_index_i,
-    input 			 write_i,
-    input [ADDR_WIDTH - 1 : 0] 	 write_index_i,
-    input [DATA_WIDTH - 1 : 0] 	 write_data_i, 
-    input 			 search_i,
-    input [DATA_WIDTH - 1 : 0] 	 search_data_i,
+    input 			read_enable_i,
+    input [ADDR_WIDTH - 1 : 0] 	read_index_i,
+    input 			write_enable_i,
+    input [ADDR_WIDTH - 1 : 0] 	write_index_i,
+    input [WIDTH - 1 : 0] 	write_data_i, 
+    input 			search_enable_i,
+    input [WIDTH - 1 : 0] 	search_data_i,
 
-    output logic , 
-    output logic [],
-    output logic [DATA_WIDTH -1 :0] data
+    output logic [WIDTH - 1 :0] data_o, 
+    output logic [WIDTH - 1 :0] data_adr
     );
 
+   logic [ADDR_WIDTH -1 :0] 	enabled_address;
+   logic [WIDTH -1 : 0 ] 	enabled_data;
    
-   logic [DATA_WIDTH -1 : 0 ] 	enable;
-   
-   always_comb begin
+   always_comb begin      
+      if(read_enable_i) enabled_address = read_index_i;
       
-      if(read_i);
-      
-      else if(write_i);
-      
-      else if(search_i);
+      else if(write_enable_i) enabled_data = write_data_i;
+     
+      else if(search_enable_i) enabled_data = search_data_i;
 
       else;
  
       
    end // always_comb begin
    
+   assign data_o = enabled_data;
+   assign data_adr = enabled_address;
    
    
 endmodule // cam_decoder
