@@ -3,6 +3,9 @@ all:
 	make view
 	make gtkwave
 
+test:
+	vcs -full64 -sverilog +lint=all,noVCDE cam_dec_revised.sv -o testcase
+
 run:
 	vcs -full64 -sverilog +lint=all,noVCDE cam_decoder.sv cam.sv cam_test.sv -o test
 
