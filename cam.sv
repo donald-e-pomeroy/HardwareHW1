@@ -46,7 +46,7 @@ row row1(.clk, .rst_i, ., .write_enable_i, .search_enable_i, .search_data_i);
 
 //   32_to_1_Mux mux(,,);emac 
 	for(iter = 0; iter < HEIGHT; iter++)begin
-		ThirtyTwoToOneMux mux(.input_line(),.selector_bits,.output_line());//TODO		
+		ThirtyTwoTogit OneMux mux(.input_line(),.selector_bits,.output_line());//TODO		
 	end   
 
 endmodule // cam
