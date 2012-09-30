@@ -5,8 +5,8 @@ module row #(parameter WIDTH=32)
  input 			reset, 
  input [WIDTH-1:0] 	data_i,
  input 			write_enable_i,
- input 			compare_enable_i,
- input [WIDTH-1:0] 	compare_i,
+ input 			search_enable_i,
+ input [WIDTH-1:0] 	search_data_i,
  output reg [WIDTH-1:0] data_o,
  output 		match_o,
  output reg 		read_valid_o 		
@@ -25,8 +25,8 @@ module row #(parameter WIDTH=32)
 			 .reset,
                          .data_i(data_i[j]),
                          .write_enable_i,
-                         .compare_enable_i,
-                         .compare_i(compare_i[j]),
+                         .search_enable_i,
+                         .search_i(search_data_i[j]),
                          .data_o(data_o[j]),
                          .match_o(match[j])
                         );
