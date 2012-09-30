@@ -5,8 +5,8 @@ module flipflop
     input      reset, 
     input      data_i,
     input      write_enable_i,
-    input      compare_enable_i,
-    input      compare_i,
+    input      search_enable_i,
+    input      search_i,
     output reg data_o,
     output     match_o
 );
@@ -19,7 +19,7 @@ module flipflop
    logic match;
    
    always_comb begin
-      match = compare_enable_i & (compare_i ~^ data_o);
+      match = search_enable_i & (search_i ~^ data_o);
    end
 
    assign match_o = match;
