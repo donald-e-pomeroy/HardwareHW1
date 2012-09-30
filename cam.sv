@@ -2,9 +2,7 @@
 // 
 // Date Created:
 // Date Modified:
-module cam#(parameter DATA_WIDTH = 32,
-	    parameter ADDR_WIDTH = 5,
-	    )
+module cam #(parameter WIDTH = 32,parameter ADDR_WIDTH = 5)
    //End Parameter Defs
   (
    input 	       clk_i, 
@@ -17,17 +15,11 @@ module cam#(parameter DATA_WIDTH = 32,
    input 	       search_enable_i, 
    input [31:0]        search_data_i,
    
-   output logic        read_valid_o,
-   output logic [31:0] read_value_o,
-   output logic        search_valid_o,
-   output logic [4:0]  search_index_o,
+   output        read_valid_o,
+   output [31:0] read_value_o,
+   output        search_valid_o,
+   output [4:0]  search_index_o
    ); // End Input Defs
-   
-//32_to_1_Mux(
-//	input[31:0] input_lines,
-//	input[4:0] selector_bits,
-//	output logic output_line),//
-   
    
    //Decoder
    //Put inputs on wires inside of the CAM
@@ -35,16 +27,15 @@ module cam#(parameter DATA_WIDTH = 32,
    wire [WIDTH - 1 : 0] write_data_i;
    wire [WIDTH- 1 : 0] search_data_i;
 
-   cam_decoder decoder(.read_i, .read_index_i, .write_i,.write_index_i,.write_data_i,.search_i,.search_data_i)
+   cam_decoder decoder(.read_enable_i, .read_index_i, .write_enable_i,.write_index_i,.write_data_i,.search_enable_i,.search_data_i);
    
-   //Memory
+  //Memory Generation
+  //Makin 32 of these.	
 
-   row mem_row(.clk, ., , , , , , ,);
+row mem_row(.clk, .rst_i, .decoder(data_o), .write_enable_i, .search_enable_i, .search_data_i);
    
-   priority_encoder priority_en(,,);
+//   priority_encoder priority_en(,,);
    
-   32_to_1_Mux mux(,,);
+//   32_to_1_Mux mux(,,);
    
-   
-
 endmodule // cam
