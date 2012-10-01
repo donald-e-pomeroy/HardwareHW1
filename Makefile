@@ -4,7 +4,7 @@ all:
 	make gtkwave
 
 test:
-	vcs -full64 -sverilog +lint=all,noVCDE .sv -o testcase
+	vcs -full64 -sverilog +lint=all,noVCDE *.sv -o testcase
 
 run:
 	vcs -full64 -sverilog +lint=all,noVCDE cam_decoder.sv cam.sv cam_test.sv -o test

@@ -1,6 +1,6 @@
 typedef logic [31:0] thirtyTwoInput;
 
-module ThirtyTwoByThirtTwoMux(input thirtyTwoInput [31:0] data_i, 
+module ThirtyTwoByThirtyTwoMux(input thirtyTwoInput [31:0] data_i, 
 	input [4:0] selector_bits,
 	output logic[31:0] data_o);
 
