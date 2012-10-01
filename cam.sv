@@ -5,48 +5,66 @@
 module cam #(parameter WIDTH = 32,parameter ADDR_WIDTH = 5, parameter HEIGHT = 32)
    //End Parameter Defs
   (
-   input 	       clk_i, 
-   input 	       rst_i,
-   input 	       read_enable_i, 
-   input [ADDR_WIDTH - 1 :0 ] 	       read_index_i,
-   input 	       write_enable_i,
-   input [ADDR_WIDTH - 1 :0 ] 	       write_index_i,
-   input [WIDTH - 1 :0]        write_data_i,
-   input 	       search_enable_i, 
-   input [WIDTH - 1:0]        search_data_i,
+   input 		      clk_i, 
+   input 		      rst_i,
+   input 		      read_enable_i, 
+   input [ADDR_WIDTH - 1 :0 ] read_index_i,
+   input 		      write_enable_i,
+   input [ADDR_WIDTH - 1 :0 ] write_index_i,
+   input [WIDTH - 1 :0]       write_data_i,
+   input 		      search_enable_i, 
+   input [WIDTH - 1:0] 	      search_data_i,
    
-   output        read_valid_o,
-   output [WIDTH - 1 : 0] read_value_o,
-   output        search_valid_o,
+   output 		      read_valid_o,
+   output [WIDTH - 1 : 0]     read_value_o,
+   output 		      search_valid_o,
    output [ADDR_WIDTH - 1:0]  search_index_o
    ); // End Input Defs
    
    //Decoder
    //Put inputs on wires inside of the CAM
-   wire [ADDR_WIDTH - 1 : 0] read_index;
-   wire [WIDTH - 1 : 0] write_data_i;
-
-   wire [WIDTH- 1 : 0] dec_read_enable;
-   wire [width -1 : 0] dec_write_enable;
-   wire [width -1 : 0] dec_compare_enable;
-
-   wire [ADDR_WIDTH - 1 :0 ] selector_bits;
-   wire [WIDTH -1 :0] input_line;
-
-   cam_dec_rev decoder(.*,.data_o(dec_data_o),.data_addr_o(dec_addr_o));
+   wire [ADDR_WIDTH - 1 : 0]  read_index;
+   wire [WIDTH - 1 : 0]       write_data_i;
    
-  //Memory Generation
-  //Makin 32 of these.	
-
-row row1(.clk, .rst_i, ., .write_enable_i, .search_enable_i, .search_data_i);
+   wire [WIDTH- 1 : 0] 	      dec_read_enable;
+   wire [width -1 : 0] 	      dec_write_enable;
+   wire [width -1 : 0] 	      dec_search_enable;
    
-   priority_encoder priority_en(,,.data_o(selector_bits));
+   wire [ADDR_WIDTH - 1 :0 ]  selector_bits;
+   wire [WIDTH -1 :0] 	      input_line;
+	
+   logic[WIDTH-1 : 0] match;   
+   logic[WIDTh - 1 : 0] readlogic;
+	cam_dec_rev decoder(.*,.read_enable_o(dec_read_enable),.write_enable_o(dec_write_enable),.search_enable_o(dec_search_enable));
    
-   	
-
-//   32_to_1_Mux mux(,,);emac 
-	for(iter = 0; iter < HEIGHT; iter++)begin
-		ThirtyTwoTogit OneMux mux(.input_line(),.selector_bits,.output_line());//TODO		
-	end   
-
+   //Memory Generation
+   
+   generate 
+      for (genvar j = 0; j < WIDTH; j++) begin
+         row		 membit(.clk,
+				.reset,
+				.data_i(data_i[j]),
+				.write_enable_i(),
+				.search_enable_i(),
+				.search_i(search_data_i[j]),
+				.data_o(data_o[j]),//output read line
+				.match_o(match[j])
+				);
+      end                
+   endgenerate
+   
+	//Search Functionality - P.E.
+  priority_encoder priority_en(.data_i(match),.data_o(search_index_o),.valid_o(search_valid_o));
+   
+      
+	ThirtyTwoToOneMux muxy(.input_line(), .selector_bits(read_index_i), .output_line())
+   	ThirtyTwoToOneMux[HEIGHT - 1 :0 ] muxArray;
+	
+	for(int x = 0 ; x< WIDTH; x++ )begin
+		for(int y = 0 ; y< HEIGHT; y++)begin 
+			
+		end
+	muxArray[x](,.selector_bits(.input_line(),read_index_i),.output_line(read_value_o[x]));
+	end
+	
 endmodule // cam
