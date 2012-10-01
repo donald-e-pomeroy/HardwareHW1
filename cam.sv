@@ -2,7 +2,7 @@
 // 
 // Date Created:
 // Date Modified:
-module cam #(parameter WIDTH = 32,parameter ADDR_WIDTH = 5, parameter HEIGHT = 32)
+module cam #(parameter WIDTH = 32,parameter ADDR_WIDTH = 5)
    //End Parameter Defs
   (
    input 			clk_i, 
@@ -22,29 +22,28 @@ module cam #(parameter WIDTH = 32,parameter ADDR_WIDTH = 5, parameter HEIGHT = 3
    ); // End Input Defs
    
    //Put inputs on wires inside of the CAM
-   wire [ADDR_WIDTH - 1 : 0 ]   read_index;
-   wire [WIDTH - 1 : 0]        write_data_i;
+   wire [ADDR_WIDTH - 1 : 0 ] 	read_index;
    
-   wire [WIDTH- 1 : 0] 	       dec_read_enable;
-   wire [width -1 : 0] 	       dec_write_enable;
-   wire [width -1 : 0] 	       dec_search_enable;
+   wire [WIDTH - 1 : 0] 	dec_read_enable;
+   wire [WIDTH - 1 : 0] 	dec_write_enable;
+   wire [WIDTH - 1 : 0] 	dec_search_enable;
    
-   wire [ADDR_WIDTH - 1 :0 ]   selector_bits;
-   wire [WIDTH -1 :0] 	       input_line;
+   wire [ADDR_WIDTH - 1 : 0 ] 	selector_bits;
+   wire [WIDTH - 1 : 0] 	input_line;
    
-   logic [WIDTH-1 : 0] 	       match;   
-   logic [WIDTh - 1 : 0]       readlogic;
-
-
+   logic [WIDTH - 1 : 0] 	match;   
+   logic [WIDTH - 1 : 0] 	readlogic;
+   
+   
    //Decoder
-   cam_dec_rev decoder(.*,.read_enable_o(dec_read_enable),.write_enable_o(dec_write_enable),.search_enable_o(dec_search_enable));
+   cam_decoder decoder(.*,.read_enable_o(dec_read_enable),.write_enable_o(dec_write_enable),.search_enable_o(dec_search_enable));
    
    //Memory Generation
    generate 
       for (genvar j = 0; j < WIDTH; j++) begin
-         row		 membit(.clk,
-				.reset,
-				.data_i(data_i[j]),
+         row		 membit(.clk(clk_i),
+				.reset(rst_i),
+				.data_i(write_data_i),//Connect All Input Bits to All Row bits
 				.write_enable_i(),
 				.search_enable_i(),
 				.search_i(search_data_i[j]),
@@ -54,12 +53,10 @@ module cam #(parameter WIDTH = 32,parameter ADDR_WIDTH = 5, parameter HEIGHT = 3
       end                
    endgenerate
 
-   ThirtyTwoByThirtyTwoMux mux();
+   ThirtyTwoByThirtyTwoMux mux(.input_lines(),.selector_bits(read_index_i),.data_o(read_value_o) );
    
    
    //Search Functionality - P.E.
    priority_encoder priority_en(.data_i(match),.data_o(search_index_o),.valid_o(search_valid_o));
-   
-   
    
 endmodule // cam

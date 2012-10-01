@@ -1,6 +1,6 @@
 //Leonard Robinson
 
-module cam_decoder_rev #(parameter WIDTH = 32,
+module cam_decoder #(parameter WIDTH = 32,
 		     parameter ADDR_WIDTH = 5,
 	             parameter DEPTH = (1<<ADDR_WIDTH)
 		    )
