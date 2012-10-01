@@ -37,7 +37,7 @@ module priority_encoder(input[31:0] data_i,output logic[4:0] data_o, output vali
 		  32'bxx100000000000000000000000000000: data_o= 5'b11101; 
 		  32'bx1000000000000000000000000000000: data_o= 5'b11110; 
 		  32'b10000000000000000000000000000000: data_o= 5'b11111; 
-		  default:                              data_o= '0;       
+		  default:                              data_o= 'x;       
 		endcase // casex (data_i)
 	   if(data_i == '0) valid_o = '0;
 	   else valid_o = '1;
