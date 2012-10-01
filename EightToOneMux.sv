@@ -2,7 +2,7 @@ module EightToOneMux(
 	input [7:0]input_lines,
 	input [2:0]selector_bits,
 	output logic output_line);
-	logic muxZerOut;
+	logic muxZeroOut;
 	logic muxOneOut;
 
 	FourToOneMux mux0(

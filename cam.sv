@@ -28,6 +28,8 @@ module cam #(parameter WIDTH = 32,parameter ADDR_WIDTH = 5)
    wire [WIDTH - 1 : 0] 	dec_write_enable;
    wire [WIDTH - 1 : 0] 	dec_search_enable;
    
+   wire [WIDTH - 1 : 0]		row_out_into_mux;
+
    wire [ADDR_WIDTH - 1 : 0 ] 	selector_bits;
    wire [WIDTH - 1 : 0] 	input_line;
    
@@ -44,16 +46,17 @@ module cam #(parameter WIDTH = 32,parameter ADDR_WIDTH = 5)
          row		 membit(.clk(clk_i),
 				.reset(rst_i),
 				.data_i(write_data_i),//Connect All Input Bits to All Row bits
-				.write_enable_i(),
-				.search_enable_i(),
-				.search_i(search_data_i[j]),
-				.data_o(data_o[j]),//output read line
-				.match_o(match[j])
+				.write_enable_i,
+				.search_enable_i,
+				.search_data_i,//Connect All the Data Ports!
+				.data_o(row_out_into_mux),//output read line
+				.match_o(match[j]),
+				.read_valid_o(read_valid_o)
 				);
       end                
    endgenerate
 
-   ThirtyTwoByThirtyTwoMux mux(.input_lines(),.selector_bits(read_index_i),.data_o(read_value_o) );
+   ThirtyTwoByThirtyTwoMux mux(.data_i(row_out_into_mux),.selector_bits(read_index_i),.data_o(read_value_o) );
    
    
    //Search Functionality - P.E.
