@@ -24,9 +24,7 @@ module cam #(parameter WIDTH = 32,parameter ADDR_WIDTH = 5)
    //Put inputs on wires inside of the CAM
    wire [ADDR_WIDTH - 1 : 0 ] 	read_index;
    
-   wire [WIDTH - 1 : 0] 	dec_read_enable;
    wire [WIDTH - 1 : 0] 	dec_write_enable;
-   wire [WIDTH - 1 : 0] 	dec_search_enable;
    
    typedef logic [31:0] 	ThirtyTwoInput;
    ThirtyTwoInput [WIDTH - 1 : 0] row_out_into_mux;
@@ -40,7 +38,7 @@ module cam #(parameter WIDTH = 32,parameter ADDR_WIDTH = 5)
    
    
    //Decoder
-   cam_decoder decoder(.*,.read_enable_o(dec_read_enable),.write_enable_o(dec_write_enable),.search_enable_o(dec_search_enable));
+   cam_decoder decoder(.*,.write_enable_o(dec_write_enable));
    
    //Memory Generation
    generate 
