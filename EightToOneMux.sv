@@ -16,10 +16,10 @@ module EightToOneMux(
 		.output_line(muxOneOut));
 
 	always_comb begin
-		assign output_line =  
-			(muxOneOut & selector_bits[2])
-			|
-			(muxZeroOut & (~selector_bits[2]));
+	   output_line =  
+			  (muxOneOut & selector_bits[2])
+	                  |
+			  (muxZeroOut & (~selector_bits[2]));
 	end
 endmodule
 	
