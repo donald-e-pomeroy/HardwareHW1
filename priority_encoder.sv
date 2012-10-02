@@ -2,7 +2,7 @@
 //
 //
 //
-module priority_encoder(input[31:0] data_i,output logic[4:0] data_o, output valid_o);
+module priority_encoder(input[31:0] data_i,output logic[4:0] data_o, output logic valid_o);
 	always_comb begin
 		casex(data_i)
 		  32'bxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx1: data_o= 5'b00000;
@@ -36,12 +36,10 @@ module priority_encoder(input[31:0] data_i,output logic[4:0] data_o, output vali
 		  32'bxxx10000000000000000000000000000: data_o= 5'b11100; 
 		  32'bxx100000000000000000000000000000: data_o= 5'b11101; 
 		  32'bx1000000000000000000000000000000: data_o= 5'b11110; 
-		  32'b10000000000000000000000000000000: data_o= 5'b11111; 
-		  default:                              data_o= 'x;       
+		  default: data_o= 5'b11111; 
 		endcase // casex (data_i)
 	   if(data_i == '0) valid_o = '0;
 	   else valid_o = '1;
-	    
 	end // always_comb
 endmodule
 

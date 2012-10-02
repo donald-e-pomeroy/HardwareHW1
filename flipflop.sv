@@ -1,14 +1,14 @@
 // Enabled flip-flop with comparator logic
 module flipflop
 (
-    input      clk,
-    input      reset, 
-    input      data_i,
-    input      write_enable_i,
-    input      search_enable_i,
-    input      search_i,
-    output reg data_o,
-    output     match_o
+    input 	 clk,
+    input 	 reset, 
+    input 	 data_i,
+    input 	 write_enable_i,
+    input 	 search_enable_i,
+    input 	 search_i,
+    output reg 	 data_o,
+    output logic match_o
 );
 
    always_ff @(posedge clk) begin
@@ -16,13 +16,9 @@ module flipflop
       else if (write_enable_i) data_o <= data_i;
    end
 
-   logic match;
-   
    always_comb begin
-      match = search_enable_i & (search_i ~^ data_o);
+      match_o = search_enable_i & (search_i == data_o);
    end
-
-   assign match_o = match;
   
 endmodule
 
