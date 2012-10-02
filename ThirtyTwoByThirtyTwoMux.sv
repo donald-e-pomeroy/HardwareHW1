@@ -6,7 +6,7 @@ module ThirtyTwoByThirtyTwoMux(input ThirtyTwoInput [31:0] data_i,
 
 	generate
 		for(genvar iter=0;iter<32;iter++)begin
-				ThirtyTwoToOneMux muxArray[iter](
+				ThirtyTwoToOneMux muxArray(
 					.input_lines(data_i[iter]),
 					.selector_bits(selector_bits),
 					.output_line(data_o[iter]));
